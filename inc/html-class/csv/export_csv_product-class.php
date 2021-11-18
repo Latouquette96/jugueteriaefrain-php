@@ -26,9 +26,7 @@ class ExportCSVProductClass extends PlantillaHTMLPHP{
         $this->_construir_nav();
 
         echo "<div class='div-cuerpo'>";
-        if ($title!=null && $title!=""){
-            echo "<h2 id='titulo' name='titulo'>$title</h2>";
-        }
+        $this->_construir_encabezado($title);
         $this->_construir_formulario();
 
         $this->_construir_fin_body();

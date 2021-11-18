@@ -35,12 +35,8 @@ class ABMSProductClass extends PlantillaHTMLPHP{
         $this->_construir_fin_header();
         $this->_construir_inicio_body();
         $this->_construir_nav();
-
-        if ($title!=null && $title!=""){
-            echo "<h2 id='titulo' name='titulo'>$title</h2>";
-        }
+        $this->_construir_encabezado($title);
         $this->_construir_abms_product();
-
         $this->_construir_fin_body();
         $this->_construir_fin_html();
     }

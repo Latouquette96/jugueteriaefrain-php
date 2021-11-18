@@ -12,7 +12,6 @@ h1{
 h2{
     font-size: 20px;
     text-align: center;
-    margin-top: 10px;
     font-weight: bold;
 }
 
@@ -24,4 +23,16 @@ legend{
 
 label{
     font-weight: bold;
+}
+
+@media (min-width: 601px) {
+    .h2-title-top {
+        margin-top: 5%;
+    }
+}
+
+@media (max-width: 600px) {
+    .h2-title-top {
+        margin-top: 20%;
+    }
 }

@@ -47,11 +47,16 @@
 
         protected function _construir_inicio_body(){
             echo "<body>";
-            //echo "<h1>Jugueteria Efrain</h1>";
         }
 
         protected function _construir_nav(){
             include_once $_SERVER['DOCUMENT_ROOT']."/jugueteriaefrain/mod/nav.php";
+        }
+
+        protected function _construir_encabezado($title){
+            if ($title!=null && $title!=""){
+                echo "<h2 class=h2-title-top id='titulo' name='titulo'>$title</h2>";
+            }
         }
 
         protected function _construir_fin_body(){

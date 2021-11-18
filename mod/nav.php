@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
             <img class="logo horizontal-logo" src="/jugueteriaefrain/img/juguetes.png" alt="forecastr logo"></img>Jugueteria Efrain
