@@ -127,7 +127,7 @@ class ABMSProductClass extends PlantillaHTMLPHP{
                 $this->_set_link_page();
                 $this->_set_link_image();
                 $this->_set_link_image_additional();
-                $this->set_button_submit();
+                $this->_set_button_submit();
 
             echo "</form>";
         echo "</div>";
@@ -403,9 +403,9 @@ class ABMSProductClass extends PlantillaHTMLPHP{
     /**
      * Establece el boton submit del formulario.
      */
-    protected function set_button_submit(){
+    protected function _set_button_submit(){
         echo "<div class='form-group row'>";
-        echo "<input id='btn-next' name='btn-next' class='btn btn-primary' type='submit' value='Confirmar'></input>";
+            echo "<input id='btn-next' name='btn-next' class='btn btn-primary' type='submit' value='Confirmar'></input>";
         echo "</div>";
     }
 
@@ -414,7 +414,7 @@ class ABMSProductClass extends PlantillaHTMLPHP{
      */
     function set_resultado(){
         echo "<div class='alert alert-success' role='alert'>";
-        echo "¡Operacion realizada con exito!";
+            echo "¡Operacion realizada con exito!";
         echo "</div>";
     }
 }

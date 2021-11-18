@@ -127,11 +127,11 @@ class ProductoMySQL extends ConexionMySQL {
         
         //CASO 1: Todas las categorias.
         if ($id_cat==0){
-            $this->sentencia = $this->mysql->prepare($sql.";");
+            $this->sentencia = $this->mysql->prepare($sql." ORDER BY p_title;");
         }
         else{
             //CASO 2: Categoria puntual
-            $this->sentencia = $this->mysql->prepare($sql." and p_cat=(?);");
+            $this->sentencia = $this->mysql->prepare($sql." and p_cat=(?) ORDER BY p_title;");
             $this->sentencia->bind_param("i", $id_cat);
         }
         //Ejecutar sql
@@ -196,7 +196,7 @@ class ProductoMySQL extends ConexionMySQL {
 
         //SQL
         $sql = $sql.$filtro_cat.$filtro_marca.$filtro_precio.$filtro_title;
-        $this->sentencia = $this->mysql->prepare($sql);
+        $this->sentencia = $this->mysql->prepare($sql." ORDER BY p_title");
 
         //Ejecutar sql
         $this->sentencia->execute();
