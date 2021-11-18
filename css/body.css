@@ -1,0 +1,36 @@
+div#div-product{
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+div#div-search{
+    border: 1px solid #ced4da;
+    background-color: rgb(197, 241, 255);
+}
+
+div#div-import-export{
+    border: 1px solid #ced4da;
+    background-color: rgb(197, 241, 255);
+}
+
+div#div-codebar{
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+div#div-resultado{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.alert{
+    margin-top: 10px;
+}
+
+.container{
+    background-color: rgb(255, 255, 255);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+

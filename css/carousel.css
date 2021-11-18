@@ -1,0 +1,41 @@
+div#div-imagenes-extra{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: white;
+    border-radius: 0.25rem;
+}
+
+div#div-image-principal{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 0.25rem;
+    background-color: white;
+}
+
+@media all and (max-width: 600px){
+    .carousel-item{
+        width: 100%;
+        max-height: 400px;
+        background-color: white;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+}
+
+@media all and (min-width: 601px){
+    div#imagen_carousel{
+        padding-top: 5px;
+        padding-bottom: 5px;
+        width: 400px;
+        height: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    div#div-image-principal{
+        width: 400px;
+        height: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

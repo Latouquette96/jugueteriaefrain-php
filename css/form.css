@@ -1,0 +1,34 @@
+textarea.form-control-plaintext{
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+input[type=text].form-control-plaintext{
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+input[type=number].form-control-plaintext{
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+select.form-control-plaintext{
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+.btn.btn-primary{
+    margin-top: 10px;
+    margin-bottom: 5px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.col-form-label-md{
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
