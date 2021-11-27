@@ -143,7 +143,7 @@ class CatalogProductCustomClass extends PlantillaHTMLPHP{
                 //Recorre el arreglo de marcas y lo inserta como opcion
                 foreach($array_marcas as $dato){
                     $marca = $dato;
-                    echo "<option value=".$marca.">".$marca."</option>";                           
+                    echo "<option value='".$marca."'>".$marca."</option>";                           
                 }
                 echo "</select>";
             echo "</div>";

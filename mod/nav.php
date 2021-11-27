@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/jugueteriaefrain/index.php">
             <img class="logo horizontal-logo" src="/jugueteriaefrain/img/juguetes.png" alt="forecastr logo"></img>Jugueteria Efrain
         </a>
     

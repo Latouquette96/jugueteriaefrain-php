@@ -188,6 +188,8 @@ class ProductoMySQL extends ConexionMySQL {
         $precio_min = isset($_POST['sp_price_min']) ? (float) $_POST['sp_price_min'] : "";
         $precio_max = isset($_POST['sp_price_max']) ? (float) $_POST['sp_price_max'] : "";
 
+        print_r($marca);
+
         //Filtro SQL
         $filtro_cat = ($cat!="" && $cat!=0) ? " AND cat_id=".$cat." " : "";
         $filtro_marca = ($marca!="") ? " AND p_brand='".$marca."' " : "";
