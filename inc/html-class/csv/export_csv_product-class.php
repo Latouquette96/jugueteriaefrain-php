@@ -54,7 +54,8 @@ class ExportCSVProductClass extends PlantillaHTMLPHP{
             $obj_cat = new CategoriaMySQL("Latouquette96","39925523");
 
             echo "<label for='select-cat'>Seleccion de categoria:</label>";
-            echo "<select name='select-cat' class='form-control'>";
+            echo "<input class='form-control' list='list_categoria' id='select-cat' name='select-cat' placeholder='Category to search...'>";
+            echo "<datalist id='list_categoria' name='list_categoria'>";
 
             $array_cat = $obj_cat->get_array_categorias_subcategorias();
 
@@ -62,7 +63,7 @@ class ExportCSVProductClass extends PlantillaHTMLPHP{
             foreach($array_cat as $dato){
                 echo "<option value=".$dato[0].">".$dato[1]."</option>";                      
             }              
-            echo "</select>"; 
+            echo "</datalist>"; 
         echo "</div>";
     }
 

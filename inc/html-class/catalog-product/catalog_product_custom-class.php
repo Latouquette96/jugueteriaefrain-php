@@ -79,7 +79,9 @@ class CatalogProductCustomClass extends PlantillaHTMLPHP{
 
             echo "<div class='form-group'>";
                 $obj_cat = new CategoriaMySQL("Latouquette96","39925523");
-                echo "<select id='select_categoria' class='form-control' name='select_categoria'>";
+
+                echo "<input class='form-control' list='list_categoria' id='select_categoria' name='select_categoria' placeholder='Category to search...'>";
+                echo "<datalist id='list_categoria' name='list_categoria'>";
 
                 //Arreglo de categorias
                 $array_categorias = $obj_cat->get_array_categorias_subcategorias();
@@ -103,7 +105,7 @@ class CatalogProductCustomClass extends PlantillaHTMLPHP{
                     $categ = $dato;
                     echo "<option value=".((int) $categ[0]).">".$categ[1]."</option>";                           
                 }
-                echo "</select>";
+                echo "</datalist>";
             echo "</div>";
 
         echo "</div>";
@@ -124,7 +126,9 @@ class CatalogProductCustomClass extends PlantillaHTMLPHP{
 
             echo "<div class='form-group'>";
                 $obj_marca = new MarcaMySQL("Latouquette96","39925523");
-                echo "<select id='select_marca' name='select_marca' class='form-control'>";
+
+                echo "<input class='form-control' list='list_marca' id='select_marca' name='select_marca' placeholder='Brand to search...'>";
+                echo "<datalist id='list_marca' name='list_marca'>";
 
                 //Arreglo de marcas
                 $array_marcas = $obj_marca->get_array_marca();
@@ -145,7 +149,7 @@ class CatalogProductCustomClass extends PlantillaHTMLPHP{
                     $marca = $dato;
                     echo "<option value='".$marca."'>".$marca."</option>";                           
                 }
-                echo "</select>";
+                echo "</datalist>";
             echo "</div>";
         
         echo "</div>";

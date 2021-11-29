@@ -53,14 +53,15 @@ class ImportCSVProductClass extends PlantillaHTMLPHP{
     protected function set_select_archivos_catalogos(){
         echo "<div class='form-group'>";
             echo "<label for='select-catalog'>Seleccion de catalogo (CSV):</label>";
-            echo "<select name='select-catalog' class='form-control'></br>";
+            echo "<input class='form-control' list='list_categoria' id='select-catalog' name='select-catalog' placeholder='Catalog to search...'>";
+            echo "<datalist id='list_categoria' name='list_categoria'>";
 
             //Recorre el arreglo de categorias y lo inserta como opcion
             foreach($this->_get_files_directory_catalogs() as $dato){
                 //Si la clave coincide, entonces ...
                 echo "<option>".$dato."</option>";                           
             }              
-            echo "</select>"; 
+            echo "</datalist>"; 
         echo "</div>";
     }
 
@@ -72,7 +73,8 @@ class ImportCSVProductClass extends PlantillaHTMLPHP{
             $obj_cat = new CategoriaMySQL("Latouquette96","39925523");
 
             echo "<label for='select-cat'>Seleccion de categoria:</label>";
-            echo "<select name='select-cat' class='form-control'>";
+            echo "<input class='form-control' list='list_cat' id='select-cat' name='select-cat' placeholder='Catategory to search...'>";
+            echo "<datalist id='list_cat' name='list_cat'>";
 
             $array_cat = $obj_cat->get_array_categorias_subcategorias();
             unset($array_cat[0]);
@@ -81,7 +83,7 @@ class ImportCSVProductClass extends PlantillaHTMLPHP{
             foreach($array_cat as $dato){
                 echo "<option value=".$dato[0].">".$dato[1]."</option>";                      
             }              
-            echo "</select>"; 
+            echo "</datalist>"; 
         echo "</div>";
     }
 

@@ -59,7 +59,8 @@ class CatalogProductClass extends PlantillaHTMLPHP{
         echo "<form action='' method='POST' name='form-catalogo' class='form-constructor'>";
        
         echo "<div class='form-group'>";
-            echo "<select id='select_categoria' class='form-control' name='select_categoria'>";
+            echo "<input class='form-control' list='list_categoria' id='select_categoria' name='select_categoria' placeholder='Category to search...'>";
+            echo "<datalist id='list_categoria' name='list_categoria'>";
 
             //Arreglo de categorias
             $array_categorias = $obj_cat->get_array_categorias_subcategorias();
@@ -83,7 +84,7 @@ class CatalogProductClass extends PlantillaHTMLPHP{
                 $categ = $dato;
                 echo "<option value=".((int) $categ[0]).">".$categ[1]."</option>";                           
             }
-            echo "</select>";
+            echo "</datalist>";
         echo "</div>";
 
         echo "<div class='form-group row'>";

@@ -135,19 +135,20 @@ class ABMSProductClass extends PlantillaHTMLPHP{
     protected function _set_select_categorias(){
         //Objeto categoria_mysql
         $obj_cat = new CategoriaMySQL("Latouquette96","39925523");
+        //Identificador de categoria
+        $id_cat = (int) $this->producto->get_id_categoria();
+        //Arreglo de categorias
+        $array_categorias = $obj_cat->get_array_categorias_subcategorias();
+        //Obtiene el producto seleccionado
+        $cat_select = $array_categorias[$id_cat];
 
         //Campo de código de barra
         echo "<div class='form-row align-items-center'>";
             echo "<div class='col-auto'>";
                 echo "<label for='select_categoria'>Categoria</label>";
-                echo "<select id='select_categoria' name='select_categoria' ".$this->_get_class_state_form_control().">";
-
-                    //Identificador de categoria
-                    $id_cat = (int) $this->producto->get_id_categoria();
-                    //Arreglo de categorias
-                    $array_categorias = $obj_cat->get_array_categorias_subcategorias();
-                    //Obtiene el producto seleccionado
-                    $cat_select = $array_categorias[$id_cat];
+                echo "<input class='form-control' list='list_categoria' id='select_categoria' name='select_categoria' placeholder='Category to search...' "
+                    .(($id_cat==0) ? "" : "value=".$id_cat." ").$this->_get_class_state_form_control().">";                
+                echo "<datalist id='list_categoria' name='list_categoria'>";
                     
                     //Establece como seleccionada la categoria encontrada.
                     //Si el valor es 0, entonces se la marca como desabilitada y seleccionada
@@ -163,7 +164,7 @@ class ABMSProductClass extends PlantillaHTMLPHP{
                         echo "<option value=".((int) $categ[0]).">".$categ[1]."</option>";                           
                     }
 
-                echo "</select>";
+                echo "</datalist>";
             echo "</div>";
         echo "</div>";
     }
