@@ -122,7 +122,6 @@ class ABMSProductClass extends PlantillaHTMLPHP{
                 $this->_set_select_condition_and_available();
                 $this->_set_link_page();
                 $this->_set_link_image();
-                $this->_set_link_image_additional();
                 $this->_set_button_submit();
 
             echo "</form>";
@@ -311,41 +310,30 @@ class ABMSProductClass extends PlantillaHTMLPHP{
     protected function _set_link_image(){
         echo "<div class='form-row align-items-center'>";
 
+            //Div de link de imagen de portada.
             echo "<div class='col-auto'>";
-                echo "<label for='txt_link_image'>Link de imagen</label>";
+                echo "<label for='txt_link_image'>Link de imagenes</label></br>";
+                echo "<small id='small_link_image_info_1' class='form-text text-muted'>
+                        Link de imagen principal (obligatorio) y link de imagenes adicionales (opcional).
+                    </small></br>";
+                echo "<small id='small_link_image_info_2' class='form-text text-muted'>
+                    Límite de imagenes adicionales: 20.
+                </small>";
                 echo "<textarea ".$this->_get_class_state_form_control()." id='txt_link_image' name='txt_link_image' 
-                    onchange='update_image()' rows=3 placeholder='https://drive.google.com/file/d/codigo/view?usp=sharing'>".$this->producto->get_link_image()."</textarea>";
+                    onchange='actualizar_carousel()' rows=3 placeholder='https://drive.google.com/file/d/codigo/view?usp=sharing'>".$this->producto->get_link_image()."</textarea>";
             echo "</div>"; //Fin form-group
 
-            echo "<div id='div-image-principal' class='col-auto'>";
-                echo "<div class='carousel'>";
-                    echo "<div id='carouselExampleControls' class='carousel slide' data-ride='carousel'>";
-                        echo "<div class='carousel-inner'>";
-                            echo "<div class='carousel-item active'>";
-                                echo "<img src='".$this->producto->get_link_image()."' id='img-link' class='img-fluid img-thumbnail' />";
-                            echo "</div>"; //Fin carousel-item
-                        echo "</div>"; //carousel-inner
-                    echo "</div>"; //carouselExampleControls
-                echo "</div>"; //carousel
-            echo "</div>"; //Fin form-group
-
-        echo "</div>";
-    }
-
-    /**
-     * Establece el textarea con los links de imagen extra.
-     */
-    protected function _set_link_image_additional(){
-        echo "<div class='form-row align-items-center'>";
+            //Div de link de imagenes adicionales.
             echo "<div class='col-auto'>";
-                echo "<label for='txt_link_image_extra'>Link de imagen extra</label>";
                 echo "<textarea ".$this->_get_class_state_form_control()." id='txt_link_image_extra' name='txt_link_image_extra' 
                     onchange='actualizar_carousel()' rows=10 placeholder='https://drive.google.com/file/d/codigo/view?usp=sharing'>".$this->producto->get_link_additional_image()."</textarea>";
              echo "</div>";
 
-            echo "<div id='div-imagenes-extra' class='col-auto'>";
+             //Div carousel de imagenes.
+             echo "<div id='div-imagenes-extra' class='col-auto'>";
                 $array_links = $this->producto->get_array_link_additional_image();
                 $long_array = count($array_links);
+
                 //crea el carruzel
                 echo "<div class='carousel'>";
                     echo "<div id='carouselExampleControls' class='carousel slide' data-ride='carousel'>";
@@ -353,15 +341,17 @@ class ABMSProductClass extends PlantillaHTMLPHP{
                             echo "<div id='imagen_carousel'>";
                                 echo "<div id='div_contenedor'>";
                                     echo "<div id='div_item_active' class='carousel-item active'>";
-                                        echo "<img src='".(($long_array>0) ? $array_links[0] : "")."' class='d-block w-100 img-fluid img-thumbnail' alt='...'>";
+                                        echo "<img src='".$this->producto->get_link_image()."' class='d-block w-100 img-fluid img-thumbnail' alt='...'>";
                                     echo "</div>";
 
-                                    $pos = 1;
-                                    while($pos<$long_array){
-                                        echo "<div id='div_item' class='carousel-item'>";
-                                            echo "<img src='".$array_links[$pos]."' class='d-block w-100 img-fluid img-thumbnail' alt='...'>";
-                                        echo "</div>";
-                                        $pos = $pos + 1;
+                                    if ($array_links[0]!=null){
+                                        $pos = 0;
+                                        while($pos<$long_array){
+                                            echo "<div id='div_item' class='carousel-item'>";
+                                                echo "<img src='".$array_links[$pos]."' class='d-block w-100 img-fluid img-thumbnail' alt='...'>";
+                                            echo "</div>";
+                                            $pos = $pos + 1;
+                                        }
                                     }
 
                                 echo "</div>";//Fin contenedor.
@@ -370,9 +360,9 @@ class ABMSProductClass extends PlantillaHTMLPHP{
                     echo "</div>";//carouselExampleControls
                 echo "</div>";//Fin carousel
             echo "</div>";//col-auto
-        echo "</div>";//Fin div-row
-    }
 
+        echo "</div>";
+    }
 
     /**
      * Comprueba el estado de $flag_codebar_on y $flag_is_form y devuelve el texto que debe contener los objetos
@@ -453,19 +443,22 @@ class ABMSProductClass extends PlantillaHTMLPHP{
         //CREACION DE LOS DIVS DE IMAGENES
 
         if (total>0){
+            var link_original = document.getElementById("txt_link_image").value;
+            var link_google = convertir_link_a_google_drive(link_original);
+
             //Creacion de div_item_active
             var caja_div_item_active = document.createElement("div");
             caja_div_item_active.setAttribute("id", "div_item_active");
             caja_div_item_active.setAttribute("class", "carousel-item active");
             //echo "<img src='".$array_links[0]."' class='d-block w-100' alt='...'>";
             var img_active = document.createElement("img");
-            img_active.setAttribute("src", str_link[0]);
+            img_active.setAttribute("src", link_google);
             img_active.setAttribute("class", "d-block w-100 img-fluid img-thumbnail");
             caja_div_item_active.appendChild(img_active);
             caja_contenedor.appendChild(caja_div_item_active);
 
-            i = 1;
-            for (i=1; i<total; i++){
+            i = 0;
+            for (i=0; i<total; i++){
                 //Creacion de div_item_active
                 var caja_div_item = document.createElement("div");
                 caja_div_item.setAttribute("id", "div_item");
@@ -481,12 +474,6 @@ class ABMSProductClass extends PlantillaHTMLPHP{
 
         div_imagen_carousel.appendChild(caja_contenedor);
         document.getElementById("txt_link_image_extra").value = txt_link_image_extra;
-    }
-
-    function update_image() {
-        var link_original = document.getElementById("txt_link_image").value;
-        var link_google = convertir_link_a_google_drive(link_original);
-        document.getElementById("img-link").src = link_google; 
         document.getElementById("txt_link_image").value = link_google;
     }
 
