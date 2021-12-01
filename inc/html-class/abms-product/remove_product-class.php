@@ -17,7 +17,7 @@ class RemoveProductClass extends ABMSProductClass{
      * Remueve el producto en la base de datos.
      */
     function remover_producto(){
-        $codebar_search = (int) $_POST['num_codebar_search'];
+        $codebar_search = $_POST['num_codebar_search'];
 
         $abm_producto = new ProductoMySQL("Latouquette96", "39925523");
         $abm_producto->remove_product($codebar_search);

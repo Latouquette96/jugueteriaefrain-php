@@ -22,7 +22,7 @@ class NewProductClass extends ABMSProductClass{
     function insertar_producto(){
         $producto = new Producto();
 
-        $codebar = (int) $_POST['sp_codebar'];
+        $codebar = $_POST['sp_codebar'];
         $title = $_POST['txt_title'];
         $marca = $_POST['txt_marca'];
         $descrip = $_POST['txt_descript'];

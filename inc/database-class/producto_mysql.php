@@ -35,7 +35,7 @@ class ProductoMySQL extends ConexionMySQL {
             VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?));";
         
         $sentencia = $this->mysql->prepare($sql);
-        $sentencia->bind_param("issdiiissss", $codebar, $title, $descrip, $price, $cat, $cond, $disp, $link, $linkimage, $linkimageadd, $brand);
+        $sentencia->bind_param("sssdiiissss", $codebar, $title, $descrip, $price, $cat, $cond, $disp, $link, $linkimage, $linkimageadd, $brand);
         $sentencia->execute();
         $sentencia->close();
     }
@@ -62,7 +62,7 @@ class ProductoMySQL extends ConexionMySQL {
         WHERE p_codebar=(?);";
         
         $sentencia = $this->mysql->prepare($sql);
-        $sentencia->bind_param("issdiiissssi", $codebar, $title, $descrip, $price, $cat, $cond, $disp, $link, 
+        $sentencia->bind_param("sssdiiissssi", $codebar, $title, $descrip, $price, $cat, $cond, $disp, $link, 
             $linkimage, $linkimageadd, $brand, $codebar_edit);
         
         $sentencia->execute();
@@ -76,7 +76,7 @@ class ProductoMySQL extends ConexionMySQL {
         $sql = "DELETE FROM productos WHERE p_codebar=(?);";
         
         $sentencia = $this->mysql->prepare($sql);
-        $sentencia->bind_param("i", $codebar);
+        $sentencia->bind_param("s", $codebar);
         
         $sentencia->execute();
         $sentencia->close();
@@ -89,7 +89,7 @@ class ProductoMySQL extends ConexionMySQL {
         $sql = "SELECT * FROM productos WHERE";
         //Sentencia
         $this->sentencia = $this->mysql->prepare($sql." p_codebar=(?);");
-        $this->sentencia->bind_param("i", $codebar);
+        $this->sentencia->bind_param("s", $codebar);
         //Ejecutar sql
         $this->sentencia->execute();
         //Crear objeto producto.

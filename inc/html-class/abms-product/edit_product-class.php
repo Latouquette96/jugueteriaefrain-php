@@ -18,11 +18,11 @@ class EditProductClass extends ABMSProductClass{
      * Edita el producto en la base de datos.
      */
     function editar_producto(){
-        $codebar_search = (int) $_POST['num_codebar_search'];
+        $codebar_search = $_POST['num_codebar_search'];
 
         $producto = new Producto();
 
-        $codebar = (int) $_POST['sp_codebar'];
+        $codebar = $_POST['sp_codebar'];
         $title = $_POST['txt_title'];
         $marca = $_POST['txt_marca'];
         $descrip = $_POST['txt_descript'];

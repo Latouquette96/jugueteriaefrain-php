@@ -55,7 +55,7 @@ class ABMSProductClass extends PlantillaHTMLPHP{
             //Si tiene un valor para la variable POST, entonces cargar producto
             //y construir form producto.
             if (isset($_POST['sp_codebar_search'])){
-                $codebar_search = (int) $_POST['sp_codebar_search'];
+                $codebar_search = $_POST['sp_codebar_search'];
                 $this->_set_producto($codebar_search);
                 $this->_construir_form_producto();
             }
@@ -88,10 +88,10 @@ class ABMSProductClass extends PlantillaHTMLPHP{
     }
 
     protected function _set_codebar_search(){
-        $codebar_search = (isset($_POST['sp_codebar_search'])) ? (int) $_POST['sp_codebar_search'] : 0;
+        $codebar_search = (isset($_POST['sp_codebar_search'])) ? $_POST['sp_codebar_search'] : "0";
 
         echo "<div class='form-group'>";
-        echo "<input type='number' class='form-control' id='sp_codebar_search' name='sp_codebar_search' placeholder='Código de barras a buscar' value=".$codebar_search."></input>";
+        echo "<input type='text' class='form-control' id='sp_codebar_search' name='sp_codebar_search' placeholder='Código de barras a buscar' value=".$codebar_search."></input>";
         echo "</div>";
     }
 
@@ -110,8 +110,8 @@ class ABMSProductClass extends PlantillaHTMLPHP{
             echo "<form action='' method='POST'>";
                 
                 if($this->flag_codebar_on){
-                    $codebar_search = (int) $_POST['sp_codebar_search'];
-                    echo "<input type='hidden' id='num_codebar_search' name='num_codebar_search' value=".$codebar_search."></input>";
+                    $codebar_search = $_POST['sp_codebar_search'];
+                    echo "<input type='hidden' id='num_codebar_search' name='num_codebar_search' value='".$codebar_search."'></input>";
                 }
 
                 $this->_set_select_categorias();
@@ -176,7 +176,7 @@ class ABMSProductClass extends PlantillaHTMLPHP{
         echo "<div class='form-row align-items-center'>";
         echo "<div class='col-auto'>";
             echo "<label for='sp_codebar'>Código de barra</label>";
-            echo "<input type='number' ".$this->_get_class_state_form_control()." id='sp_codebar' name='sp_codebar' placeholder='Código de barras' value='".$this->producto->get_codebar()."'>";
+            echo "<input type='text' ".$this->_get_class_state_form_control()." id='sp_codebar' name='sp_codebar' placeholder='Código de barras' value='".$this->producto->get_codebar()."'>";
         echo "</div>";
         echo "</div>";
     }
