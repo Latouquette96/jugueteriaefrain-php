@@ -97,7 +97,7 @@ class ImportCSVProductClass extends PlantillaHTMLPHP{
         $path = $conf->get_directory_catalog();
 
         // Arreglo con todos los nombres de los archivos
-        $coleccion_files = scandir($path."/OLD");
+        $coleccion_files = scandir($path);
 
         foreach($coleccion_files as $file){
             if (strstr($file,'.csv')){

@@ -40,8 +40,8 @@ class ExportCSVProductClass extends PlantillaHTMLPHP{
         echo "<div class='container' id='div-import-export'>";
             echo "<legend>Formulario Exportar productos</legend>";
             echo "<form method='POST' action=''>";
-                $this->set_select_categoria();
-                $this->set_button_submit();
+                //$this->_set_select_categoria();
+                $this->_set_button_submit();
             echo "</form>";
         echo "</div>";
     }
@@ -49,7 +49,7 @@ class ExportCSVProductClass extends PlantillaHTMLPHP{
     /**
      * Establece el campo del select categoria.
      */
-    protected function set_select_categoria(){
+    protected function _set_select_categoria(){
         echo "<div class='form-group'>";
             $obj_cat = new CategoriaMySQL("Latouquette96","39925523");
 
@@ -70,9 +70,9 @@ class ExportCSVProductClass extends PlantillaHTMLPHP{
     /**
      * Establece el boton submit del formulario.
      */
-    protected function set_button_submit(){
+    protected function _set_button_submit(){
         echo "<div class='form-group row'>";
-        echo "<input id='btn_submit' name='btn_submit' class='btn btn-primary' type='submit' value='Confirmar'></input>";
+            echo "<input id='btn_submit' name='btn_submit' class='btn btn-primary' type='submit' value='Exportar productos'></input>";
         echo "</div>";
     }
 
@@ -105,31 +105,11 @@ class ExportCSVProductClass extends PlantillaHTMLPHP{
         //Objetos de mysql
         $csv_mysql = new CSVMySQL("Latouquette96", "39925523");
         $producto_mysql = new ProductoMySQL("Latouquette96", "39925523");
-        $obj_cat = new CategoriaMySQL("Latouquette96", "39925523");
 
-        //Recupera el identificador de la categoria.
-        $id_cat= (int) $_POST['select-cat'];
-        
-        //Si el id es distinto de 0, entonces se exporta un determinado 
-        if ($id_cat!=0){
-            //Recupera el nomnbre del archivo (sin extension)
-            $name_file = $obj_cat->get_name_category_subcategory($id_cat);
-            //Recuperar productos
-            $array_producto = $producto_mysql->search_all_for_categories_export($id_cat);
-            //Exportar registros
-            $csv_mysql->exportar_registros($name_file, $array_producto);
-        }
-        else{
-            //Para cada identificador de categoria.
-            foreach($obj_cat->get_all_identificador_category() as $id){
-                //Recupera el nomnbre del archivo (sin extension)
-                $name_file = $obj_cat->get_name_category_subcategory($id);
-                //Recuperar productos
-                $array_producto = $producto_mysql->search_all_for_categories_export($id);
-                //Exportar registros
-                $csv_mysql->exportar_registros($name_file, $array_producto);
-            }
-        }
+        //Recuperar productos
+        $array_producto = $producto_mysql->search_all_for_categories_export();
+        //Exportar registros
+        $csv_mysql->exportar_registros($array_producto);
     }
 
     /**

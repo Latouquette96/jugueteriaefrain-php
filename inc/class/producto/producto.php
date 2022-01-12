@@ -25,7 +25,7 @@ class Producto {
     * Constructor de un producto.
     */
     public function __construct(){
-        $this->codebar = 0;
+        $this->codebar = "";
         $this->title = "";
         $this->description = "";
         $this->price = 0;
@@ -243,8 +243,9 @@ class Producto {
         return $this->marca;
     }
 
-    function cargar_array_csv($array, $id_cat){
-        $this->codebar = (int) $array[0];
+    /*
+    function cargar_array_csv_v1($array, $id_cat){
+        $this->codebar = $array[0];
         $this->title = $this->_limpiarTexto(utf8_encode($array[1]));
         $this->description = $this->_limpiarTexto(utf8_encode($array[2]));
         $this->price = utf8_encode($array[7]);
@@ -253,6 +254,20 @@ class Producto {
         $this->link_image = utf8_encode($array[9]);
         $this->link_additional_image = utf8_encode($array[10]);
         $this->marca = utf8_encode($array[11]);
+        $this->set_text_condition($array[6]);
+        $this->set_text_available($array[5]);
+    }*/
+
+    function cargar_array_csv($array, $id_cat){
+        $this->codebar = $array[0];
+        $this->title = (($array[1]));
+        $this->description = (($array[2]));
+        $this->price = ($array[7]);
+        $this->id_categoria = (int) ($id_cat);
+        //$this->link_page = ($array[8]);
+        $this->link_image = ($array[9]);
+        $this->link_additional_image = ($array[10]);
+        $this->marca = ($array[11]);
         $this->set_text_condition($array[6]);
         $this->set_text_available($array[5]);
     }
@@ -342,7 +357,7 @@ class Producto {
         $array_to_string = array();
         array_push($array_to_string, $this->codebar);
         array_push($array_to_string, $this->title);
-        array_push($array_to_string, $this->description);
+        array_push($array_to_string, "'".$this->description."'");
         array_push($array_to_string, $this->cat_product_google);
         array_push($array_to_string, $this->cat_product_facebook);
         array_push($array_to_string, $this->available);
@@ -353,12 +368,13 @@ class Producto {
         array_push($array_to_string, $this->link_additional_image);
         array_push($array_to_string, $this->marca);
 
-        $cadena_export = $array_to_string[0].',"'.$array_to_string[1].'","'.$array_to_string[2].'","'
-        .$array_to_string[3].'","'.$array_to_string[4].'","'.$array_to_string[5].'","'
-        .$array_to_string[6].'","'.$array_to_string[7].' ARS","'.$array_to_string[8].'","'
-        .$array_to_string[9].'","'.$array_to_string[10].'","'.$array_to_string[11].'"';
+        //$cadena_export = '"'.$array_to_string[0].'","'.$array_to_string[1].'","'.$array_to_string[2].'","'
+        // .$array_to_string[3].'","'.$array_to_string[4].'","'.$array_to_string[5].'","'
+        //.$array_to_string[6].'","'.$array_to_string[7].' ARS","'.$array_to_string[8].'","'
+        //.$array_to_string[9].'","'.$array_to_string[10].'","'.$array_to_string[11].'"';
 
-        return $cadena_export;
+        //return $cadena_export;
+        return $array_to_string;
     }
 }
 ?>

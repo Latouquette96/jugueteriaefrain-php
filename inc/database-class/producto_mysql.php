@@ -241,13 +241,12 @@ class ProductoMySQL extends ConexionMySQL {
     * Devuelve un arreglo de productos correspondiente a una categoria y subcategoria.
     * Este arreglo está pensado para exportar a un archivo CSV.
     */
-    function search_all_for_categories_export($id_cat){
+    function search_all_for_categories_export(){
         $sql = "SELECT p_codebar, p_title, p_descrip, cat_google, cat_facebook, di_name, co_name, p_price, p_link, p_linkimage, p_linkimageextra, p_brand 
         FROM productos, disponibilidad, condiciones, categorias 
-        WHERE p_condition=co_id and p_available=di_id and p_cat=cat_id and cat_id=(?)";
+        WHERE p_condition=co_id and p_available=di_id and p_cat=cat_id";
 
         $this->sentencia = $this->mysql->prepare($sql);
-        $this->sentencia->bind_param("i", $id_cat);
         
         //Ejecutar sql
         $this->sentencia->execute();

@@ -7,6 +7,7 @@
     $obj_html = $_SESSION['obj_csv_import'];
     
     if (isset($_POST['btn_submit'])){
+        
         $obj_html->construir_html("Importar productos de .CSV");
         $obj_html->importar();
         $obj_html->set_resultado_importar();
