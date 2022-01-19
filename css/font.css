@@ -15,6 +15,12 @@ h2{
     font-weight: bold;
 }
 
+h3{
+    font-size: 18px;
+    font-weight: bold;
+    padding-top:15px;
+}
+
 legend{
     font-size: 16px;
     font-style:oblique;

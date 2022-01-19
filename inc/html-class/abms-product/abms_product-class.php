@@ -5,6 +5,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."/jugueteriaefrain/inc/database-class/cat
 include_once $_SERVER['DOCUMENT_ROOT']."/jugueteriaefrain/inc/database-class/producto_mysql.php";
 include_once $_SERVER['DOCUMENT_ROOT']."/jugueteriaefrain/inc/database-class/disponibilidad_mysql.php";
 include_once $_SERVER['DOCUMENT_ROOT']."/jugueteriaefrain/inc/database-class/condicion_mysql.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/jugueteriaefrain/inc/database-class/marca_mysql.php";
 include_once $_SERVER['DOCUMENT_ROOT']."/jugueteriaefrain/inc/class/producto/producto.php";
 
 
@@ -88,7 +89,19 @@ class ABMSProductClass extends PlantillaHTMLPHP{
     }
 
     protected function _set_codebar_search(){
-        $codebar_search = (isset($_POST['sp_codebar_search'])) ? $_POST['sp_codebar_search'] : "0";
+        $codebar_search = 0;
+
+        if (isset($_POST['sp_codebar_search'])){
+            $codebar_search = $_POST['sp_codebar_search'];
+        }
+        else{
+            if (isset($_GET['codebar_product'])){
+                $codebar_search = $_GET['codebar_product'];
+            }
+            else{
+                $codebar_search = 0;
+            }
+        }
 
         echo "<div class='form-group'>";
         echo "<input type='text' class='form-control' id='sp_codebar_search' name='sp_codebar_search' placeholder='Código de barras a buscar' value=".$codebar_search."></input>";
@@ -116,7 +129,8 @@ class ABMSProductClass extends PlantillaHTMLPHP{
 
                 $this->_set_select_categorias();
                 $this->_set_codebar();
-                $this->_set_title_and_brand();
+                $this->_set_title();
+                $this->_set_brand();
                 $this->_set_price();
                 $this->_set_description();
                 $this->_set_select_condition_and_available();
@@ -182,22 +196,81 @@ class ABMSProductClass extends PlantillaHTMLPHP{
     }
 
     /**
-     * Dibuja el cuadro de texto para el titulo y la marca.
+     * Dibuja el cuadro de texto para el titulo.
      */
-    protected function _set_title_and_brand(){
-        //Fila Titulo-marca
+    protected function _set_title(){
+        //Fila Titulo
         echo "<div class='form-row align-items-center'>";
-        //Título
-        echo "<div class='col-auto'>";
-            echo "<label for='txt_title'>Titulo</label>";
-            echo "<input type='text' ".$this->_get_class_state_form_control()." id='txt_title' name='txt_title' placeholder='Titulo del producto' value='".$this->producto->get_title()."'>";
+            //Título
+            echo "<div class='col-auto'>";
+                echo "<label for='txt_title'>Titulo</label>";
+                echo "<input type='text' ".$this->_get_class_state_form_control()." id='txt_title' name='txt_title' placeholder='Titulo del producto' value='".$this->producto->get_title()."'>";
+
+                //Texto small para titulo
+                echo "<small id='passwordHelpBlock' class='form-text text-muted'>";
+                    echo "Formato del título: <b>Producto \"Titulo\" - Marca (Modelo).</b>\n";
+                    echo "Ejemplo: \"Autitos x10 \"Auto World\" - Lyon Toys\". ";
+                echo "</small>";
+                
+                echo "<small id='passwordHelpBlock' class='form-text text-muted'>";
+                    echo "<b>Evitar insertar</b> títulos con todo el texto en mayusculas. Por ejemplo: \"OCA - MAGIKA\"";
+                echo "</small>";
         
             echo "</div>";
-        //Marca
-        echo "<div class='col-auto'>";
-            echo "<label for='txt_marca'>Marca</label>";
-            echo "<input type='text' ".$this->_get_class_state_form_control()." id='txt_marca' name='txt_marca' placeholder='Marca del producto' value='".$this->producto->get_marca()."'>";
         echo "</div>";
+    }
+
+    /**
+     * Dibuja el cuadro de texto para la marca con sus respectivas opciones.
+     */
+    protected function _set_brand(){
+        //Objeto categoria_mysql
+        $obj_marca = new MarcaMySQL("Latouquette96","39925523");
+        //Obtiene el arreglo de marcas
+        $array_marcas = $obj_marca->get_array_marca();
+        //Recupera el texto de la marca (devuelve "" si no hay texto)
+        $text_marca = $this->producto->get_marca();
+        //Obtiene el producto seleccionado
+        $marca_select = array_search($text_marca, $array_marcas);
+
+        echo "<div class='form-row align-items-center'>";
+            echo "<div class='col-auto'>";
+                echo "<label for='txt_marca'>Marca</label>";
+                //Input de marcas
+                echo "<input class='form-control' list='list_marca' id='txt_marca' name='txt_marca' 
+                    ".$this->_get_class_state_form_control()." value='".$text_marca."'>";    
+                
+                //Texto small para marcas
+                echo "<small id='passwordHelpBlock' class='form-text text-muted'>";
+                    echo "Escriba NUEVAS marcas o seleccione una de la lista. La marca 'Import' es la genérica para marcas desconocidas.";
+                echo "</small>";
+                
+                //Lista de marcas
+                echo "<datalist id='list_marca' name='list_marca'>";
+
+                    //Si se ha encontrado la marca, entonces cargar toda las marcas
+                    if ($text_marca!=""){
+                        //Establece como seleccionada la marca encontrada.
+                        //Si el valor es 0, entonces se la marca como desabilitada y seleccionada
+                        echo "<option value='".($array_marcas[$marca_select])."' selected>"
+                        .$array_marcas[$marca_select]."</option>";
+
+                        //Remueve la marca seleccionada del arreglo
+                        unset($array_marcas[$marca_select]);
+
+                        //Recorre el arreglo de categorias y lo inserta como opcion
+                        foreach($array_marcas as $marca){
+                            echo "<option value='".($marca)."'>".$marca."</option>";                           
+                        }
+                    }
+                    else{
+                        //Recorre el arreglo de categorias y lo inserta como opcion
+                        foreach($array_marcas as $marca){
+                            echo "<option value='".($marca)."'>".$marca."</option>";                           
+                        }
+                    }
+                echo "</datalist>";
+            echo "</div>";
         echo "</div>";
     }
 

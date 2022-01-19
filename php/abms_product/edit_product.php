@@ -5,6 +5,8 @@
     $_SESSION['obj_edit_product'] = (isset($_SESSION['obj_edit_product'])) ? $_SESSION['obj_edit_product'] :new EditProductClass();
 
     $obj_html = $_SESSION['obj_edit_product'];
+
+    
     
     if (isset($_POST['btn-next'])){
         $obj_html->construir();

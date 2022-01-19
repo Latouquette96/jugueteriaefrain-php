@@ -1,0 +1,10 @@
+.card-text{
+    height: 80px;
+    overflow:hidden;
+}
+
+.card-text:hover{
+    overflow:auto;
+    height: auto;
+    color:blue;
+}

@@ -35,6 +35,7 @@
             echo "<link href='/jugueteriaefrain/css/carousel.css' rel='stylesheet' type='text/css'/>";
             echo "<link href='/jugueteriaefrain/css/form.css' rel='stylesheet' type='text/css'/>";
             echo "<link href='/jugueteriaefrain/css/img.css' rel='stylesheet' type='text/css'/>";
+            echo "<link href='/jugueteriaefrain/css/catalog.css' rel='stylesheet' type='text/css'/>";
         }
 
         protected function _construir_title($title){

@@ -28,6 +28,15 @@ div#div-resultado{
     margin-right: auto;
 }
 
+div#panel_novedades{
+    padding-bottom: 15px;
+}
+
+div#list_prod_img{
+    height: 300px;
+    overflow: scroll;
+}
+
 .alert{
     margin-top: 10px;
 }

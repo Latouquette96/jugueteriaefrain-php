@@ -6,8 +6,7 @@ class EditProductClass extends ABMSProductClass{
     //Atributos de instancia
 
     function EditProductClass(){
-        parent:: __construct();
-        
+        parent:: __construct();   
     }
 
     function construir(){

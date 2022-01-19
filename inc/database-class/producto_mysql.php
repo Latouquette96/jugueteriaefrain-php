@@ -285,5 +285,44 @@ class ProductoMySQL extends ConexionMySQL {
         return $array_product;
     }
 
+    /**
+     * Recupera un arreglo de arreglos con productos que tienen la imagen en construccion (no definida).
+     * Cada subarray está compuesto de dos elementos: [0] codigo de barra, [1] Título.
+     */
+    function search_product_image_not_defined(){
+        $sql = "SELECT p_codebar, p_title 
+        FROM productos
+        WHERE p_linkimage='https://drive.google.com/uc?export=view&id=1Mh8yFhGtvhq7AkKzs09jad8d5pjwADKi'";
+
+        $this->sentencia = $this->mysql->prepare($sql);
+        
+        //Ejecutar sql
+        $this->sentencia->execute();
+        //Inicializa el arreglo.
+        $array_product = array();
+        $pos = 0;
+
+        //Recupera los resultados y los almacena en sus respectivas variables.
+        if ($this->sentencia->bind_result($_codebar, $_title)){
+            //Poner variables por cada elemento a recuperar de la consulta
+            while ($this->sentencia->fetch()){
+                //Crea un arreglo de datos para el producto.
+                $date_product = array(
+                    0 => $_codebar,
+                    1 => $_title
+                );
+                
+                //Almacena los productos.
+                $array_product[$pos] = $date_product;
+                $pos = $pos + 1;
+            }
+        }
+
+        //Cierra la conexion a la db
+        $this->sentencia->close();
+
+        return $array_product;
+    }
+
 }
 ?>
