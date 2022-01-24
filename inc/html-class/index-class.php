@@ -31,8 +31,39 @@ class IndexClass extends PlantillaHTMLPHP{
     protected function _set_panel_novedades(){
         echo "<div id='panel_novedades' class='container'>";
             $this->_set_listado_productos_img_construccion();
+            //$this->_crear_formato_sql();
         echo "</div>";
     }
+
+    /*
+    protected function _crear_formato_sql(){
+        $pathfile = $_SERVER['DOCUMENT_ROOT']."/jugueteriaefrain/google.txt";
+        $filefin = $_SERVER['DOCUMENT_ROOT']."/jugueteriaefrain/categorias_google.txt";
+
+        //Abrir archivo
+        setlocale(LC_ALL, 'es_AR.UTF8');
+        $file_ini = fopen($pathfile,"r");
+        $file_fin = fopen($filefin,"w");
+
+        $encabezado_fin = "INSERT INTO categorias(cat_id, cat_google) values\n";
+        fputs($file_fin, $encabezado_fin);
+
+        $data = fgetcsv($file_ini, 1000, ",");
+        $cadena = "(".$data[0].",\"".$data[1]."\")";
+        fputs($file_fin, $cadena);
+
+        
+        setlocale(LC_ALL, 'es_AR.UTF8');
+        while ($data = fgetcsv($file_ini, 1000, ",")) {
+            $num = count($data);
+            $cadena = ",\n(".$data[0].",\"".$data[1]."\")";
+            fputs($file_fin, $cadena);
+        }
+
+        fclose($file_ini);
+        fclose($file_fin);
+    }
+    */
 
     /**
      * Muestra el listado de productos con imagen en construcción.

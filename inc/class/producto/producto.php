@@ -18,7 +18,6 @@ class Producto {
     protected $link_additional_image;
     protected $array_link_additional = array();
     protected $marca;
-    protected $cat_product_facebook;
     protected $cat_product_google;
 
     /*
@@ -41,12 +40,11 @@ class Producto {
         $this->marca = '';
         $this->id_condition = 0;
         $this->id_available = 0;
-        $this->cat_product_facebook = "";
         $this->cat_product_google = "";
     }    
 
     /*
-    * SETERS
+    * SETTERS
     */
 
     function set_codebar($cb){
@@ -67,10 +65,6 @@ class Producto {
 
     function set_categoria($categ){
         $this->categoria = $categ;
-    }
-
-    function set_subcategoria($subcateg){
-        $this->subcategoria = $subcateg;
     }
 
     function set_id_categoria($id_cat){
@@ -203,10 +197,6 @@ class Producto {
         return $this->id_categoria;
     }
 
-    function get_subcategoria(){
-        return $this->subcategoria;
-    }
-
     function get_text_condition(){
         return $this->condition;
     }
@@ -330,19 +320,10 @@ class Producto {
 
         return $str_return;
     }
-    
-    function set_cat_product_facebook($cat){
-        $this->cat_product_facebook = $cat;
-    }
 
     function set_cat_product_google($cat){
         $this->cat_product_google = $cat;
     }
-
-    function get_cat_product_facebook(){
-        return $this->cat_product_facebook;
-    }
-
     
     function get_cat_product_google(){
         return $this->cat_product_google;
@@ -359,7 +340,6 @@ class Producto {
         array_push($array_to_string, $this->title);
         array_push($array_to_string, "'".$this->description."'");
         array_push($array_to_string, $this->cat_product_google);
-        array_push($array_to_string, $this->cat_product_facebook);
         array_push($array_to_string, $this->available);
         array_push($array_to_string, $this->condition);
         array_push($array_to_string, $this->price);

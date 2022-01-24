@@ -19,7 +19,7 @@ class CategoriaMySQL extends ConexionMySQL {
     function get_array_categorias(){
         //Consulta a emplear
         $this->mysql = new mysqli("localhost", "Latouquette96", "39925523", "db_jugueteria_efrain");
-        $sql = "SELECT DISTINCT cat_name FROM categorias ORDER BY cat_name;";
+        $sql = "SELECT DISTINCT cat_google FROM categorias ORDER BY cat_google;";
         $this->sentencia = $this->mysql->prepare($sql);
 
         return $this->get_array();
@@ -32,20 +32,20 @@ class CategoriaMySQL extends ConexionMySQL {
     function get_array_categorias_subcategorias(){
         //Consulta a emplear
         $this->mysql = new mysqli("localhost", "Latouquette96", "39925523", "db_jugueteria_efrain");
-        $sql = "SELECT DISTINCT cat_id, cat_name, cat_subcat FROM categorias ORDER BY cat_name, cat_subcat;";
+        $sql = "SELECT DISTINCT cat_id, cat_google FROM categorias ORDER BY cat_google;";
         $this->sentencia = $this->mysql->prepare($sql);
 
         $array_data = array();
         //Para la clave 0, el valor es un producto vacio.
-        $array_data[0] = array("0", "Seleccione una categoria -> subcategoria");
+        $array_data[0] = array("0", "Seleccione una categoria");
 
         $this->sentencia->execute();
         //Si hay datos que recuperar.
-        if ($this->sentencia->bind_result($id, $cat, $subcat)){
+        if ($this->sentencia->bind_result($id, $cat_google)){
             //Si hay elementos que recuperar.
              while ($this->sentencia->fetch()){
                  //Almacenar el elemento en el arreglo.
-                $array_data[$id] = array($id, $cat."->".$subcat);
+                $array_data[$id] = array($id, $cat_google);
             }
         }
         return $array_data;
@@ -54,7 +54,7 @@ class CategoriaMySQL extends ConexionMySQL {
     /*
     * Recupera todas las subcategorias/divisiones que tiene una categoria y lo retorna como arreglo.
     */
-    function get_array_subcategorias($categ){
+    function get_array_subcategorias_aux($categ){
         $this->mysql = new mysqli("localhost", "Latouquette96", "39925523", "db_jugueteria_efrain");
         $this->sentencia = null;
         //Consulta a emplear
@@ -90,13 +90,13 @@ class CategoriaMySQL extends ConexionMySQL {
     /**
      * Recupera y devuelve el identificador para una categoria con determinado nombre y division.
      */
-    function get_identificador_category($categ, $subcat){
+    function get_identificador_category($cat_google){
         $identificador = 0;
         //Consulta a emplear
         $this->mysql = new mysqli("localhost", "Latouquette96", "39925523", "db_jugueteria_efrain");
-        $sql = "SELECT DISTINCT cat_id FROM categorias WHERE cat_name=(?) and cat_subcat=(?);";
+        $sql = "SELECT DISTINCT cat_id FROM categorias WHERE cat_google=(?);";
         $this->sentencia = $this->mysql->prepare($sql);
-        $this->sentencia->bind_param("ss", $categ, $subcat);
+        $this->sentencia->bind_param("s", $cat_google);
         $this->sentencia->execute();
         
         //Los resultados de la busqueda se almacenaran en $dato.
@@ -142,17 +142,17 @@ class CategoriaMySQL extends ConexionMySQL {
         $to_return = "";
         //Consulta a emplear
         $this->mysql = new mysqli("localhost", "Latouquette96", "39925523", "db_jugueteria_efrain");
-        $sql = "SELECT DISTINCT cat_name, cat_subcat FROM categorias WHERE cat_id=(?);";
+        $sql = "SELECT DISTINCT cat_google FROM categorias WHERE cat_id=(?);";
         $this->sentencia = $this->mysql->prepare($sql);
         $this->sentencia->bind_param("i", $id_reg);
         $this->sentencia->execute();
         
         //Los resultados de la busqueda se almacenaran en $dato.
-        if ($this->sentencia->bind_result($cat_name, $sub_cat_name)){
+        if ($this->sentencia->bind_result($cat_google)){
             //Si hay filas que recorrer, entonces
             if ($this->sentencia->fetch()){
                 //Almacenar el identificador obtenido.
-                $to_return = $cat_name."-".$sub_cat_name;
+                $to_return = $cat_google;
             }
         }
 

@@ -289,6 +289,8 @@ class CatalogProductCustomClass extends PlantillaHTMLPHP{
                 echo "<li class='list-group-item'><b>Código: ".$producto->get_codebar()."</b></li>";
                 echo "<li class='list-group-item'><b>Precio:</b> $ ".$producto->get_price()."</li>";
                 echo "<li class='list-group-item'>".$producto->get_text_available()." - ".$producto->get_text_condition()."</li>";
+                echo "<a href=\"/jugueteriaefrain/php/abms_product/edit_product.php?codebar_product=".$producto->get_codebar()."\"
+                class='list-group-item list-group-item-action list-group-item-primary' target='_blank'><center><b>Editar...</b></center></a>";
             echo "</ul>";
         echo "</div>";
     }

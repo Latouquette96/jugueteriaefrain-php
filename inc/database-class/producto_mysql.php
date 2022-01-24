@@ -62,7 +62,7 @@ class ProductoMySQL extends ConexionMySQL {
         WHERE p_codebar=(?);";
         
         $sentencia = $this->mysql->prepare($sql);
-        $sentencia->bind_param("sssdiiissssi", $codebar, $title, $descrip, $price, $cat, $cond, $disp, $link, 
+        $sentencia->bind_param("sssdiiisssss", $codebar, $title, $descrip, $price, $cat, $cond, $disp, $link, 
             $linkimage, $linkimageadd, $brand, $codebar_edit);
         
         $sentencia->execute();
@@ -176,7 +176,7 @@ class ProductoMySQL extends ConexionMySQL {
     */
     function search_all_custom(){
         //Sentencia para recuperar una lista de productos que cumplan con determinados filtros.
-        $sql = "SELECT DISTINCT p_codebar, p_title, p_descrip, p_price, di_name, cat_name, cat_subcat, co_name, p_link,
+        $sql = "SELECT DISTINCT p_codebar, p_title, p_descrip, p_price, di_name, cat_google, co_name, p_link,
             p_linkimage, p_linkimageextra, p_brand 
             FROM productos, disponibilidad, condiciones, categorias 
             WHERE p_condition=co_id and p_available=di_id and p_cat=cat_id ";
@@ -207,7 +207,7 @@ class ProductoMySQL extends ConexionMySQL {
         $pos = 0;
         
         //Recupera los resultados y los almacena en sus respectivas variables.
-        if ($this->sentencia->bind_result($_codebar, $_title, $_descrip, $_price, $_diname, $_coname, $_catname, $_subcat, $_link, $_linkimage, $_linkimageadd, $_brand)){
+        if ($this->sentencia->bind_result($_codebar, $_title, $_descrip, $_price, $_diname, $_coname, $_cat_google, $_link, $_linkimage, $_linkimageadd, $_brand)){
             //Poner variables por cada elemento a recuperar de la consulta
             while ($this->sentencia->fetch()){
                 
@@ -220,7 +220,7 @@ class ProductoMySQL extends ConexionMySQL {
                 $producto->set_price($_price);
                 $producto->set_text_available($_diname);
                 $producto->set_text_condition($_coname);
-                $producto->set_categoria($_catname."->".$_subcat);
+                $producto->set_categoria($_cat_google);
                 //$producto->set_link_page($_link);
                 $producto->set_link_image($_linkimage);
                 $producto->set_link_additional_image($_linkimageadd);
@@ -242,9 +242,9 @@ class ProductoMySQL extends ConexionMySQL {
     * Este arreglo está pensado para exportar a un archivo CSV.
     */
     function search_all_for_categories_export(){
-        $sql = "SELECT p_codebar, p_title, p_descrip, cat_google, cat_facebook, di_name, co_name, p_price, p_link, p_linkimage, p_linkimageextra, p_brand 
-        FROM productos, disponibilidad, condiciones, categorias 
-        WHERE p_condition=co_id and p_available=di_id and p_cat=cat_id";
+        $sql = "SELECT p_codebar, p_title, p_descrip, p_cat, di_name, co_name, p_price, p_link, p_linkimage, p_linkimageextra, p_brand 
+        FROM productos, disponibilidad, condiciones 
+        WHERE p_condition=co_id and p_available=di_id";
 
         $this->sentencia = $this->mysql->prepare($sql);
         
@@ -255,7 +255,7 @@ class ProductoMySQL extends ConexionMySQL {
         $pos = 0;
 
         //Recupera los resultados y los almacena en sus respectivas variables.
-        if ($this->sentencia->bind_result($_codebar, $_title, $_descrip, $_cat_google, $_cat_facebook, $_diname, $_coname, $_price, $_link, $_linkimage, $_linkimageadd, $_brand)){
+        if ($this->sentencia->bind_result($_codebar, $_title, $_descrip, $_cat_google, $_diname, $_coname, $_price, $_link, $_linkimage, $_linkimageadd, $_brand)){
             //Poner variables por cada elemento a recuperar de la consulta
             while ($this->sentencia->fetch()){
                 //Cargo el objeto producto con los valores del producto encontrado.
@@ -270,7 +270,6 @@ class ProductoMySQL extends ConexionMySQL {
                 $producto->set_link_image($_linkimage);
                 $producto->set_link_additional_image($_linkimageadd);
                 $producto->set_marca($_brand);
-                $producto->set_cat_product_facebook($_cat_facebook);
                 $producto->set_cat_product_google($_cat_google);
                 
                 //Almacena los productos.

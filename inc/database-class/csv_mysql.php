@@ -57,8 +57,8 @@ class CSVMySQL {
         setlocale(LC_ALL, 'es_AR.UTF8');
 
         //Insertar header
-        //$header = "id, title, description, google_product_category, fb_product_category, availability, condition, price, link, image_link, additional_image_link, brand\n";
-        $header = array('id', 'title', 'description', 'google_product_category', 'fb_product_category', 'availability', 'condition', 'price', 'link', 'image_link', 'additional_image_link', 'brand');
+        //$header = "id, title, description, google_product_category, availability, condition, price, link, image_link, additional_image_link, brand\n";
+        $header = array('id', 'title', 'description', 'google_product_category', 'availability', 'condition', 'price', 'link', 'image_link', 'additional_image_link', 'brand');
 
         //fwrite($file, $header.PHP_EOL);
         fputcsv($file, $header, $delimiter);
